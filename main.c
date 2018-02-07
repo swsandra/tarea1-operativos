@@ -1,11 +1,18 @@
 #include "listaordenada.h"
 #include "cola.h"
 #include "pila.h"
-//#include "lectura_escritura.h"
+#include "lectura_escritura.h"
 
 int main(){
 
-	char *n1 = "Nombre1";
+	//Prueba lectura
+	//MATAME
+	char *archivo = "Entrada1.txt";
+	lista_t *lista = leerArchivo(archivo);
+	printf("Leyo\n");
+	imprimirLista(lista);
+
+	/*char *n1 = "Nombre1";
 	char *n2 = "Nombre2";
 	char *n3 = "Nombre3";
 	char *n4 = "Nombre4";
@@ -13,9 +20,11 @@ int main(){
 	nodo_t *nodo2=crearNodo(n2,2,2);
 	nodo_t *nodo3=crearNodo(n3,3,3);
 	nodo_t *nodo4=crearNodo(n4,4,4);
-	
+	*/
+
 	//Prueba pila
-	pila_t *pila = crearPila();
+
+	/*pila_t *pila = crearPila();
 	imprimirPila(pila);
 	printf("push\n");
 	push(pila, nodo1);
@@ -49,7 +58,9 @@ int main(){
 	imprimirPila(pila);
 	nodoEliminado = pop(pila);
 	liberarEspacioNodo(nodoEliminado);
-	imprimirPila(pila);
+	imprimirPila(pila);*/
+
+
 	//Prueba lista
 	
 	/*lista_t *lista=crearLista();
@@ -80,6 +91,7 @@ int main(){
 	liberarEspacioNodo(nodoEliminado);
 	imprimirLista(lista);
 	nodoEliminado = eliminarNodo(lista);*/
+
 
 	//Prueba cola
 
@@ -117,12 +129,6 @@ int main(){
 	imprimirCola(cola);
 	nodoEliminado = desencolar(cola);
 	liberarEspacioNodo(nodoEliminado);*/
-
-	//Prueba lectura
-	//MATAME
-	/*char *archivo = "Entrada1.txt";
-	lista_t *lista = leerArchivo(archivo);
-	imprimirLista(lista);*/
 
 	return 0;
 }
