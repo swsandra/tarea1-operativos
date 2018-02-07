@@ -1,21 +1,55 @@
 #include "listaordenada.h"
 #include "cola.h"
-#include "lectura_escritura.h"
+#include "pila.h"
+//#include "lectura_escritura.h"
 
 int main(){
 
-	/*char *n1 = "Nombre1";
+	char *n1 = "Nombre1";
 	char *n2 = "Nombre2";
 	char *n3 = "Nombre3";
 	char *n4 = "Nombre4";
-	int x,y;
-	x=0;
-	y=0;
 	nodo_t *nodo1=crearNodo(n1,1,1);
 	nodo_t *nodo2=crearNodo(n2,2,2);
 	nodo_t *nodo3=crearNodo(n3,3,3);
-	nodo_t *nodo4=crearNodo(n4,4,4);*/
+	nodo_t *nodo4=crearNodo(n4,4,4);
 	
+	//Prueba pila
+	pila_t *pila = crearPila();
+	imprimirPila(pila);
+	printf("push\n");
+	push(pila, nodo1);
+	imprimirPila(pila);
+	printf("push\n");
+	push(pila, nodo2);
+	imprimirPila(pila);
+	printf("push\n");
+	push(pila, nodo3);
+	imprimirPila(pila);
+	printf("push\n");
+	push(pila, nodo4);
+	imprimirPila(pila);
+
+	printf("Hacemos pop a todos\n");
+	nodo_t *nodoEliminado=(nodo_t*)malloc(sizeof(nodo_t));
+	nodoEliminado = pop(pila);
+	liberarEspacioNodo(nodoEliminado);
+	imprimirPila(pila);
+	printf("Otro nodo\n");
+	nodoEliminado = pop(pila);
+	liberarEspacioNodo(nodoEliminado);
+	imprimirPila(pila);
+	printf("Otro nodo\n");
+	nodoEliminado = pop(pila);
+	liberarEspacioNodo(nodoEliminado);
+	imprimirPila(pila);
+	printf("Otro nodo\n");
+	nodoEliminado = pop(pila);
+	liberarEspacioNodo(nodoEliminado);
+	imprimirPila(pila);
+	nodoEliminado = pop(pila);
+	liberarEspacioNodo(nodoEliminado);
+	imprimirPila(pila);
 	//Prueba lista
 	
 	/*lista_t *lista=crearLista();
@@ -85,9 +119,10 @@ int main(){
 	liberarEspacioNodo(nodoEliminado);*/
 
 	//Prueba lectura
-	char *archivo = "Entrada1.txt";
+	//MATAME
+	/*char *archivo = "Entrada1.txt";
 	lista_t *lista = leerArchivo(archivo);
-	imprimirLista(lista);
+	imprimirLista(lista);*/
 
 	return 0;
 }

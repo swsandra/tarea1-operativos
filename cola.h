@@ -46,7 +46,7 @@ nodo_t* desencolar(cola_t *colaActual){ //quito el primero
 
 void imprimirCola(cola_t *cola){
 	nodo_t *p = cola->cabeza;
-	if(p==NULL) printf("La cola está vacía.\n");
+	if(estaVaciaCola(cola)) printf("La cola está vacía.\n");
 	else{
 		do{	
 			printf("%s	%d	%d\n", p->nombre,p->tamano,p->totalizacion);

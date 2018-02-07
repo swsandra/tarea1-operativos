@@ -112,7 +112,7 @@ nodo_t* eliminarNodo(lista_t *lista){
 //Imprimir de lista
 void imprimirLista(lista_t *lista){
 	nodo_t *p = lista->cabeza;
-	if(p==NULL) printf("La lista está vacía.\n");
+	if(estaVaciaLista(lista)) printf("La lista está vacía.\n");
 	else{
 		do{	
 			printf("%s	%d	%d\n", p->nombre,p->tamano,p->totalizacion);
