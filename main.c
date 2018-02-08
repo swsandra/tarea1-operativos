@@ -7,9 +7,8 @@ int main(){
 
 	//Prueba lectura
 	//MATAME
-	char *archivo = "Entrada1.txt";
+	char *archivo = "Entrada2.txt";
 	lista_t *lista = leerArchivo(archivo);
-	printf("Leyo\n");
 	imprimirLista(lista);
 
 	/*char *n1 = "Nombre1";

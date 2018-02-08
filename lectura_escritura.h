@@ -16,7 +16,7 @@ int numeroLineas(char *nombreArchivo){
 	}
 
 	int lineas=0;
-	char temp[100];
+	char temp[1000];
 
 	while (fgets(temp, sizeof(temp), archivo) != NULL){
 		lineas++;
@@ -36,7 +36,7 @@ lista_t* leerArchivo(char *nombreArchivo){
 	lista_t *lista = crearLista();
 	
 	//Leemos por linea y hacemos split
-	char linea[100];
+	char linea[1000];
 	while(fgets(linea,sizeof(linea),archivo)!=NULL){
 		char *p = strtok(linea,"\t");
 		char *val[3];
@@ -46,14 +46,14 @@ lista_t* leerArchivo(char *nombreArchivo){
 			p=strtok(NULL,"\t");
 			i++;
 		}
-		char *nombre=val[0];
-		//char *nombre;
+		//char nombre[100];
 		//strcpy(nombre,val[0]);
+		//printf("%s\n", val[0]);
 		int tamano=atoi(val[1]);
 		int total=atoi(val[2]);
 		//Creamos un nodo
 		//printf("Hola\n");
-		nodo_t *nodo = crearNodo(nombre,tamano,total);
+		nodo_t *nodo = crearNodo(val[0],tamano,total);
 		//printf("nodo %s %d %d\n", nodo->nombre, nodo->tamano, nodo->total);
 		//Lo agregamos
 		//printf("Hola2\n");

@@ -11,7 +11,7 @@ typedef struct elemento{
 
 	int tamano;
 	int total;
-	char nombre[];
+	char nombre[1000];
 
 }elem_t;
 
@@ -30,7 +30,7 @@ typedef struct listaordenada{
 
 //Funciones
 //Crear un nodo
-nodo_t* crearNodo(char* nombre, int tamano, int total){
+nodo_t* crearNodo(char nombre[], int tamano, int total){
 	nodo_t *nodoNuevo=(nodo_t*)malloc(sizeof(nodo_t));
 	if(!nodoNuevo) return NULL;
 	//char *nom = nombre;
