@@ -26,8 +26,48 @@ int numeroLineas(char *nombreArchivo){
 	return lineas;
 }
 
-//Si cuando lee el archivo retorna una lista NULL, he didnt make it
 lista_t* leerArchivo(char *nombreArchivo){
+	FILE* archivo=NULL;
+	archivo=fopen(nombreArchivo,"r");
+	if(archivo==NULL){
+		printf("Error al abrir el archivo. \n");
+		exit(1);
+	}
+	lista_t *lista = crearLista();
+	
+	//Leemos por linea y hacemos split
+	char linea[100];
+	while(fgets(linea,sizeof(linea),archivo)!=NULL){
+		char *p = strtok(linea,"\t");
+		char *val[3];
+		int i=0;
+		while(p!=NULL){
+			val[i]=p;
+			p=strtok(NULL,"\t");
+			i++;
+		}
+		char *nombre=val[0];
+		int tamano=atoi(val[1]);
+		int total=atoi(val[2]);
+		//Creamos un nodo
+		nodo_t *nodo = crearNodo(nombre,tamano,total);
+		//printf("%s %d %d\n", nodo->nombre, nodo->tamano, nodo->total);
+		//Lo agregamos
+		agregarNodo(lista,nodo);
+		//imprimirLista(lista);
+		/*printf("Nuevo\n");
+		for (i = 0; i < 3; i++){
+			printf("%s\n", val[i]);
+		}*/
+	}
+
+	fclose(archivo);
+	return lista;
+
+}
+
+
+/*lista_t* leerArchivo(char *nombreArchivo){
 	FILE* archivo=NULL;
 	archivo=fopen(nombreArchivo,"r");
 	if(archivo==NULL){
@@ -52,7 +92,7 @@ lista_t* leerArchivo(char *nombreArchivo){
 		//printf("2\n");
 		agregarNodo(lista,nodo);
 		//printf("3\n");
-		//printf("nodo		%s  %d  %d\n", nodo->nombre,nodo->tamano,nodo->totalizacion);
+		//printf("nodo		%s  %d  %d\n", nodo->nombre,nodo->tamano,nodo->total);
 
 	}
 	//printf("salio for\n");
@@ -62,7 +102,7 @@ lista_t* leerArchivo(char *nombreArchivo){
 
 }
 
-
+*/
 
 
 #endif

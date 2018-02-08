@@ -9,7 +9,7 @@ typedef struct nodo{
 
 	char *nombre;
 	int tamano;
-	int totalizacion;
+	int total;
 	struct nodo *next;
 
 }nodo_t;
@@ -20,13 +20,13 @@ typedef struct listaordenada{
 
 //Funciones
 //Crear un nodo
-nodo_t* crearNodo(char* nombre, int tamano, int totalizacion){
+nodo_t* crearNodo(char* nombre, int tamano, int total){
 	nodo_t *nodoNuevo=(nodo_t*)malloc(sizeof(nodo_t));
 	if(!nodoNuevo) return NULL;
 
 	nodoNuevo->nombre=nombre;
 	nodoNuevo->tamano=tamano;
-	nodoNuevo->totalizacion=totalizacion;
+	nodoNuevo->total=total;
 	nodoNuevo->next=NULL;
 	return nodoNuevo;
 }
@@ -56,7 +56,6 @@ lista_t* crearLista(){
 void agregarNodo(lista_t *lista, nodo_t *nuevo){
 	nodo_t *p = lista->cabeza;
 	nodo_t *anterior=NULL;
-	//if(p!=NULL) printf("cabeza %d\n", p->tamano);
 	if(estaVaciaLista(lista)){ //Si la lista esta vacia
 		lista->cabeza=nuevo;
 	}else{
@@ -66,24 +65,14 @@ void agregarNodo(lista_t *lista, nodo_t *nuevo){
 		}else if(p->tamano <= nuevo->tamano){
 			do{
 				if(nuevo->tamano > p->tamano){
-					//if(anterior!=NULL) printf("%d\n", anterior->tamano);
-					//if(nuevo->next!=NULL)printf("1nuevo->next %d\n", nuevo->next->tamano);
 					if(p->next!=NULL) nuevo->next=p->next;
 					else nuevo->next=NULL;
-					//printf("2nuevo->next %d\n", nuevo->next->tamano);
-					//printf("1p->next %d\n", p->next->tamano);
 					p->next=nuevo;
-					//printf("2p->next %d\n", p->next->tamano);
 					if(anterior!=NULL) anterior->next=p;
 					anterior=p;
-					//p=p->next;
 					if(nuevo->next!=NULL) p=nuevo->next;
 					else return;
-					//printf("anterior %d nuevo %d siguiente/comparador %d\n", anterior->tamano, nuevo->tamano, p->tamano);
 				}else if(nuevo->tamano == p->tamano){
-					//printf("nuevo %d\n", nuevo->tamano);
-					//printf("p %d\n", p->tamano);
-					//printf("Hola\n");
 					if(anterior!=NULL) anterior->next=p;
 					nuevo->next=p->next;
 					p->next=nuevo;
@@ -92,8 +81,6 @@ void agregarNodo(lista_t *lista, nodo_t *nuevo){
 				else{
 					p=p->next;
 				}
-				//printf("p %d\n", p->tamano);
-				//printf("nuevo %d\n", nuevo->tamano);
 			}while (p!=NULL);
 		}
 	}
@@ -114,8 +101,8 @@ void imprimirLista(lista_t *lista){
 	nodo_t *p = lista->cabeza;
 	if(estaVaciaLista(lista)) printf("La lista está vacía.\n");
 	else{
-		do{	
-			printf("%s	%d	%d\n", p->nombre,p->tamano,p->totalizacion);
+		do{
+			printf("%s	%d	%d\n", p->nombre,p->tamano,p->total);
 			p=p->next;
 		}while(p!=NULL);
 	}
