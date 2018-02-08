@@ -47,13 +47,18 @@ lista_t* leerArchivo(char *nombreArchivo){
 			i++;
 		}
 		char *nombre=val[0];
+		//char *nombre;
+		//strcpy(nombre,val[0]);
 		int tamano=atoi(val[1]);
 		int total=atoi(val[2]);
 		//Creamos un nodo
+		//printf("Hola\n");
 		nodo_t *nodo = crearNodo(nombre,tamano,total);
-		//printf("%s %d %d\n", nodo->nombre, nodo->tamano, nodo->total);
+		//printf("nodo %s %d %d\n", nodo->nombre, nodo->tamano, nodo->total);
 		//Lo agregamos
+		//printf("Hola2\n");
 		agregarNodo(lista,nodo);
+		//printf("list\n");
 		//imprimirLista(lista);
 		/*printf("Nuevo\n");
 		for (i = 0; i < 3; i++){
