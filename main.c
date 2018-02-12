@@ -7,7 +7,7 @@
 int main(int argc, char *argv[]){
 
 	//cantidad correcta de argumentos
-	if(argc!=2){
+	/*if(argc!=2){
 		fprintf(stderr,"USO de %s: archivo_de_entrada\n", argv[0]);  
     	exit(1);
 	}
@@ -53,14 +53,13 @@ int main(int argc, char *argv[]){
 				break;
 
 		}
-		//salir=true;
-	}
+	}*/
 
 	//Prueba lectura
 	//MATAME
-	/*char *archivo = "Entrada2.txt";
+	char *archivo = "Entrada2.txt";
 	lista_t *lista = leerArchivo(archivo);
-	imprimirLista(lista);*/
+	imprimirLista(lista);
 
 	/*char *n1 = "Nombre1";
 	char *n2 = "Nombre2";

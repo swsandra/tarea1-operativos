@@ -25,6 +25,7 @@ typedef struct nodo{
 typedef struct listaordenada{
 	
 	nodo_t *cabeza;
+	int num_elem;
 
 }lista_t;
 
@@ -113,6 +114,8 @@ void agregarNodo(lista_t *lista, nodo_t *nuevo){
 		}
 	}
 
+	lista->num_elem++;
+
 	return;
 }
 
@@ -123,6 +126,8 @@ nodo_t* eliminarNodo(lista_t *lista){
 		lista->cabeza=p->next;
 		return p; //retorna NULL si la lista es vacia
 	}else return NULL;
+
+	lista->num_elem--;	
 }
 
 
