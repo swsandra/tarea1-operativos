@@ -128,10 +128,16 @@ nodo_t* eliminarNodo(lista_t *lista){
 	}else return NULL;
 }
 
+//Busca un nodo por indice
 nodo_t* buscarNodo(lista_t *lista, int indice){
-
-	
-
+	int i;
+	if(estaVaciaLista(lista)==false){
+		nodo_t *p = lista->cabeza;
+		for(i=0;i<indice;i++){
+			p=p->next;
+		}
+		return p;
+	}else return NULL;
 }
 
 
