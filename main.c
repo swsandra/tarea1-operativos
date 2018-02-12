@@ -28,26 +28,24 @@ int main(int argc, char *argv[]){
 		
 		int opciones_sim[9];
 		//Inicializamos las opciones por defecto
-		/////
-		opciones_sim[0]=1;//Modalidad 1 interactiva 2 automatica
-		opciones_sim[1]=3;
-		opciones_sim[2]=30;
-		opciones_sim[3]=200;
-		opciones_sim[4]=1;
-		opciones_sim[5]=4;
-		opciones_sim[6]=130;
-		opciones_sim[7]=150;
-		opciones_sim[8]=120;
-
+		int *opciones=opciones_sim;
+		*opciones=1;//Modalidad 1 interactiva 2 automatica
+		*(opciones+1)=3;
+		*(opciones+2)=30;
+		*(opciones+3)=200;
+		*(opciones+4)=1;
+		*(opciones+5)=4;
+		*(opciones+6)=130;
+		*(opciones+7)=150;
+		*(opciones+8)=120;
 		switch(opcion){
-
 			case '1'://ejecutar simulacion
 
 				break;
 			case '2'://cambiar opciones simulacion
 				modificar_simulacion(opciones_sim);
-				for(int i=0;i<sizeof(opciones_sim);i++){
-					printf("%d: %d\n",i,opciones_sim[i]);
+				for(int i=0;i<9;i++){
+					printf("%d: %d\n",i,*(opciones+i));
 				}
 				break;
 			case '3'://salir del programa
@@ -55,7 +53,7 @@ int main(int argc, char *argv[]){
 				break;
 
 		}
-
+		//salir=true;
 	}
 
 	//Prueba lectura
