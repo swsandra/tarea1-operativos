@@ -3,13 +3,48 @@
 #include "pila.h"
 #include "lectura_escritura.h"
 
-int main(){
+int main(int argc, char *argv[]){
+
+	//cantidad correcta de argumentos
+	if(argc!=2){
+		fprintf(stderr,"USO de %s: archivo_de_entrada\n", argv[0]);  
+    	exit(1);
+	}
+
+	bool salir=false;
+	char opcion;
+	while(!salir){
+		do{
+			printf("Menú\n");
+			printf("1. Ejecutar la simulación\n");
+			printf("2. Cambiar las opciones de la simulación\n");
+			printf("3. Salir del programa\n");
+			fflush(stdin);
+			printf("Introduzca una opción: ");
+			scanf(" %c",&opcion);
+			//printf("%c\n", opcion);
+		}while(opcion!='1' && opcion!='2' && opcion!='3');
+		
+		switch(opcion){
+
+			case '1':
+
+			case '2':
+
+			case '3':
+			
+
+		}
+
+		salir=true;
+
+	}
 
 	//Prueba lectura
 	//MATAME
-	char *archivo = "Entrada2.txt";
+	/*char *archivo = "Entrada2.txt";
 	lista_t *lista = leerArchivo(archivo);
-	imprimirLista(lista);
+	imprimirLista(lista);*/
 
 	/*char *n1 = "Nombre1";
 	char *n2 = "Nombre2";

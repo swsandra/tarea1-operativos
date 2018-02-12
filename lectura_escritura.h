@@ -7,7 +7,7 @@
 #include "listaordenada.h"
 
 //Cuenta el numero de lineas de un archivo
-int numeroLineas(char *nombreArchivo){
+/*int numeroLineas(char *nombreArchivo){
 	FILE* archivo=NULL;
 	archivo=fopen(nombreArchivo,"r");
 	if(archivo==NULL){
@@ -24,7 +24,7 @@ int numeroLineas(char *nombreArchivo){
 
 	fclose(archivo);
 	return lineas;
-}
+}*/
 
 lista_t* leerArchivo(char *nombreArchivo){
 	FILE* archivo=NULL;
