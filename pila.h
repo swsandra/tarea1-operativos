@@ -48,7 +48,7 @@ void imprimirPila(pila_t *pila){
 	if(estaVaciaPila(pila)) printf("La pila está vacía.\n");
 	else{
 		do{	
-			printf("%s	%d	%d\n", p->elem.nombre,p->elem.tamano,p->elem.total);
+			printf("%s	%d	%d\n", p->elem.nombre,p->elem.cc,p->elem.total);
 			p=p->next;
 		}while(p!=NULL);
 	}

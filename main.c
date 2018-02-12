@@ -25,6 +25,7 @@ int main(int argc, char *argv[]){
 			//printf("%c\n", opcion);
 		}while(opcion!='1' && opcion!='2' && opcion!='3');
 		
+		int[9] opciones_sim;
 		switch(opcion){
 
 			case '1'://ejecutar simulacion

@@ -9,7 +9,7 @@
 
 typedef struct elemento{
 
-	int tamano;
+	int cc;
 	int total;
 	char nombre[1000];
 
@@ -37,7 +37,7 @@ nodo_t* crearNodo(char nombre[], int tamano, int total){
 	strcpy(nodoNuevo->elem.nombre,nombre);
 	//printf("%s\n", nom);
 	//nodoNuevo->elem.nombre=nom;
-	nodoNuevo->elem.tamano=tamano;
+	nodoNuevo->elem.cc=tamano;
 	nodoNuevo->elem.total=total;
 	nodoNuevo->next=NULL;
 	return nodoNuevo;
@@ -70,7 +70,7 @@ void imprimirLista(lista_t *lista){
 	if(estaVaciaLista(lista)) printf("La lista está vacía.\n");
 	else{
 		do{
-			printf("%s	%d	%d\n", p->elem.nombre,p->elem.tamano,p->elem.total);
+			printf("%s	%d	%d\n", p->elem.nombre,p->elem.cc,p->elem.total);
 			p=p->next;
 		}while(p!=NULL);
 	}
@@ -85,14 +85,14 @@ void agregarNodo(lista_t *lista, nodo_t *nuevo){
 	if(estaVaciaLista(lista)){ //Si la lista esta vacia
 		lista->cabeza=nuevo;
 	}else{
-		if(p->elem.tamano > nuevo->elem.tamano){//Si es mas pequeno que el primero
+		if(p->elem.cc > nuevo->elem.cc){//Si es mas pequeno que el primero
 			nuevo->next=p;
 			lista->cabeza=nuevo;
-		}else if(p->elem.tamano <= nuevo->elem.tamano){
+		}else if(p->elem.cc <= nuevo->elem.cc){
 			do{
 				//printf("comp\n");
 				//printf("%s %d %d\n", nuevo->nombre, nuevo->tamano, nuevo->total);
-				if(nuevo->elem.tamano > p->elem.tamano){
+				if(nuevo->elem.cc > p->elem.cc){
 					if(p->next!=NULL) nuevo->next=p->next;
 					else nuevo->next=NULL;
 					p->next=nuevo;
@@ -100,7 +100,7 @@ void agregarNodo(lista_t *lista, nodo_t *nuevo){
 					anterior=p;
 					if(nuevo->next!=NULL) p=nuevo->next;
 					else return;
-				}else if(nuevo->elem.tamano == p->elem.tamano){
+				}else if(nuevo->elem.cc == p->elem.cc){
 					if(anterior!=NULL) anterior->next=p;
 					nuevo->next=p->next;
 					p->next=nuevo;
