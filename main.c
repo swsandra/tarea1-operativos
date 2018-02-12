@@ -3,6 +3,7 @@
 #include "pila.h"
 #include "lectura_escritura.h"
 #include "modificar_simulacion.h"
+#include "simulacion.h"
 
 int main(int argc, char *argv[]){
 
@@ -40,13 +41,14 @@ int main(int argc, char *argv[]){
 		*(opciones+8)=120;
 		switch(opcion){
 			case '1'://ejecutar simulacion
-
+				simulacion(opciones,argv[1],"log.txt");
 				break;
 			case '2'://cambiar opciones simulacion
 				modificar_simulacion(opciones_sim);
-				for(int i=0;i<9;i++){
+				/*for(int i=0;i<9;i++){
 					printf("%d: %d\n",i,*(opciones+i));
-				}
+				}*/
+				simulacion(opciones,argv[1],"log.txt");
 				break;
 			case '3'://salir del programa
 				salir=true;
