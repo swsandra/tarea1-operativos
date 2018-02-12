@@ -27,16 +27,17 @@ int main(int argc, char *argv[]){
 		
 		switch(opcion){
 
-			case '1':
+			case '1'://ejecutar simulacion
 
-			case '2':
+				break;
+			case '2'://cambiar opciones simulacion
 
-			case '3':
-			
+				break;
+			case '3'://salir del programa
+				salir=true;
+				break;
 
 		}
-
-		salir=true;
 
 	}
 
