@@ -2,6 +2,7 @@
 #include "cola.h"
 #include "pila.h"
 #include "lectura_escritura.h"
+#include "modificar_simulacion.h"
 
 int main(int argc, char *argv[]){
 
@@ -25,14 +26,29 @@ int main(int argc, char *argv[]){
 			//printf("%c\n", opcion);
 		}while(opcion!='1' && opcion!='2' && opcion!='3');
 		
-		int[9] opciones_sim;
+		int opciones_sim[9];
+		//Inicializamos las opciones por defecto
+		/////
+		opciones_sim[0]=1;//Modalidad 1 interactiva 2 automatica
+		opciones_sim[1]=3;
+		opciones_sim[2]=30;
+		opciones_sim[3]=200;
+		opciones_sim[4]=1;
+		opciones_sim[5]=4;
+		opciones_sim[6]=130;
+		opciones_sim[7]=150;
+		opciones_sim[8]=120;
+
 		switch(opcion){
 
 			case '1'://ejecutar simulacion
 
 				break;
 			case '2'://cambiar opciones simulacion
-
+				modificar_simulacion(opciones_sim);
+				for(int i=0;i<sizeof(opciones_sim);i++){
+					printf("%d: %d\n",i,opciones_sim[i]);
+				}
 				break;
 			case '3'://salir del programa
 				salir=true;
