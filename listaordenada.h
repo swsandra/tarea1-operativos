@@ -82,6 +82,7 @@ void imprimirLista(lista_t *lista){
 void agregarNodo(lista_t *lista, nodo_t *nuevo){
 	nodo_t *p = lista->cabeza;
 	nodo_t *anterior=NULL;
+	lista->num_elem++;
 	//printf("%s %d %d\n", nuevo->nombre, nuevo->tamano, nuevo->total);
 	if(estaVaciaLista(lista)){ //Si la lista esta vacia
 		lista->cabeza=nuevo;
@@ -114,20 +115,17 @@ void agregarNodo(lista_t *lista, nodo_t *nuevo){
 		}
 	}
 
-	lista->num_elem++;
-
 	return;
 }
 
 //Eliminar el primero. Aqui hay que asegurarse que la lista no este vacia
 nodo_t* eliminarNodo(lista_t *lista){
+	lista->num_elem--;
 	if(estaVaciaLista(lista)==false){
 		nodo_t *p = lista->cabeza;
 		lista->cabeza=p->next;
 		return p; //retorna NULL si la lista es vacia
 	}else return NULL;
-
-	lista->num_elem--;	
 }
 
 

@@ -60,6 +60,7 @@ int main(int argc, char *argv[]){
 	char *archivo = "Entrada2.txt";
 	lista_t *lista = leerArchivo(archivo);
 	imprimirLista(lista);
+	printf("%d\n", lista->num_elem);
 
 	/*char *n1 = "Nombre1";
 	char *n2 = "Nombre2";
