@@ -128,5 +128,11 @@ nodo_t* eliminarNodo(lista_t *lista){
 	}else return NULL;
 }
 
+nodo_t* buscarNodo(lista_t *lista, int indice){
+
+	
+
+}
+
 
 #endif

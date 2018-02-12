@@ -46,68 +46,16 @@ lista_t* leerArchivo(char *nombreArchivo){
 			p=strtok(NULL,"\t");
 			i++;
 		}
-		//char nombre[100];
-		//strcpy(nombre,val[0]);
-		//printf("%s\n", val[0]);
 		int tamano=atoi(val[1]);
 		int total=atoi(val[2]);
 		//Creamos un nodo
-		//printf("Hola\n");
 		nodo_t *nodo = crearNodo(val[0],tamano,total);
-		//printf("nodo %s %d %d\n", nodo->nombre, nodo->tamano, nodo->total);
-		//Lo agregamos
-		//printf("Hola2\n");
 		agregarNodo(lista,nodo);
-		//printf("list\n");
-		//imprimirLista(lista);
-		/*printf("Nuevo\n");
-		for (i = 0; i < 3; i++){
-			printf("%s\n", val[i]);
-		}*/
 	}
 
 	fclose(archivo);
 	return lista;
 
 }
-
-
-/*lista_t* leerArchivo(char *nombreArchivo){
-	FILE* archivo=NULL;
-	archivo=fopen(nombreArchivo,"r");
-	if(archivo==NULL){
-		printf("Error al abrir el archivo. \n");
-		exit(1);
-	}
-	lista_t *lista = crearLista();
-	char *nombre;
-	char tempNombre[100];
-	int tamano=0;
-	int totaliz=0;
-	nodo_t *nodo;
-	int x=numeroLineas(nombreArchivo);
-	//printf("Hola1\n");
-	for(int i=0;i<x;i++){
-		fscanf(archivo,"%s\t%d\t%d\n",tempNombre,&tamano,&totaliz);
-		//Copiamos el string 
-		//printf("fscanf		%s  %d  %d\n", tempNombre,tamano,totaliz);
-		strcpy(nombre,tempNombre);
-		//printf("1\n");
-		nodo = crearNodo(nombre,tamano,totaliz);
-		//printf("2\n");
-		agregarNodo(lista,nodo);
-		//printf("3\n");
-		//printf("nodo		%s  %d  %d\n", nodo->nombre,nodo->tamano,nodo->total);
-
-	}
-	//printf("salio for\n");
-	//imprimirLista(lista);
-	fclose(archivo);
-	return lista;
-
-}
-
-*/
-
 
 #endif
