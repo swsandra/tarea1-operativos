@@ -39,6 +39,7 @@ int main(int argc, char *argv[]){
 		*(opciones+6)=130;
 		*(opciones+7)=150;
 		*(opciones+8)=120;
+
 		switch(opcion){
 			case '1'://ejecutar simulacion
 				simulacion(opciones,argv[1],"log.txt");
@@ -55,6 +56,7 @@ int main(int argc, char *argv[]){
 				break;
 
 		}
+
 	}
 
 	return 0;

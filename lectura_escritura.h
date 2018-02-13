@@ -55,7 +55,11 @@ lista_t* leerArchivo(char *nombreArchivo){
 
 	fclose(archivo);
 	return lista;
+}
 
+//Agrega una linea al log
+void escribirArchivo(char *nombreArchivo, char* linea){
+	return;
 }
 
 #endif
