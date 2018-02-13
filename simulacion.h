@@ -37,8 +37,10 @@ void simulacion(int *opciones, char* archivo_entrada, char *log){
 	srand(time(NULL));
 	int tam_carrito, compra;
 	nodo_t *nodo;
+	int compras_por_carrito[carritos];
 	for(i=0;i<carritos;i++){
 		tam_carrito=(rand()%max_productos)+1; //Para asegurarnos que no tengamos un carrito con 0 compras
+		compras_por_carrito[i]=tam_carrito;
 		//printf("Carrito %d\n",i);
 		for(j=0;j<tam_carrito;j++){
 			//Generamos un nro random del tamano del inventario para 
@@ -55,6 +57,7 @@ void simulacion(int *opciones, char* archivo_entrada, char *log){
 
 	//Modalidad interactiva
 	if(modalidad==1){
+		int tiempo_cliente[carritos];
 		for(i=0;i<carritos;i++){
 			printf("Presione Enter para iniciar la simulación del carrito %d...\n",i);
 			char c = getchar();
@@ -246,10 +249,51 @@ void simulacion(int *opciones, char* archivo_entrada, char *log){
 				instante++;
 				if(facturacion==0){
 					printf("Se ha facturado el carrito %d\n",i);
+					tiempo_cliente[i]=instante;
 					break;
 				}
 			}
+
 		}
+
+		//Para la escritura en el log
+		char *str="";
+		/*
+		Tiempo total (suma de los tiempos por cliente)	->	suma de tiempo_cliente*/
+		strcat(archivo_entrada,"\t"); //destination source. archivo entrada
+		strcat(str,archivo_entrada);
+		char num[10];
+		sprintf(num,"%d\t",carritos);
+		strcat(str,num);//cantidad de carritos
+		for(i=0;i<carritos;i++){//numero de productos por carrito
+			sprintf(num,"%d\t",compras_por_carrito[i]);
+			strcat(str,num);
+		}
+		sprintf(num,"%d\t",cc_banda);
+		strcat(str,num); //capacidad banda transportadora
+		sprintf(num,"%d\t",v_cajera);
+		strcat(str,num);//velocidad cajera
+		sprintf(num,"%d\t",v_embolsado);
+		strcat(str,num);//velocidad embolsador
+		sprintf(num,"%d\t",t_fact);
+		strcat(str,num);//tiempo facturacion
+		sprintf(num,"%d\t",cc_embolsado);//capacidad area embolsado
+		strcat(str,num);
+		sprintf(num,"%d\t",cc_bolsa);//capacidad bolsa
+		strcat(str,num);
+		for(i=0;i<carritos;i++){//tiempo por carrito
+			sprintf(num,"%d\t",tiempo_cliente[i]);
+			strcat(str,num);
+		}
+		int tiempo_total=0;
+		for(i=0;i<carritos;i++){//numero de productos por carrito
+			tiempo_total=tiempo_total+tiempo_cliente[i];
+		}
+		sprintf(num,"%d\t",tiempo_total);
+		strcat(str,num);
+		//Escribir en el log
+		escribirLinea(log,str);
+
 		//!!!!!!!!!!!HAY QUE LIBERAR EL ESPACIO CADA VEZ QUE SE ELIMINA ALGO
 		//!!!Ver en que parte se tiene que liberar cada cosa
 		//Liberar el espacio del inventario
