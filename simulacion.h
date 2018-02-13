@@ -124,7 +124,6 @@ void simulacion(int *opciones, char* archivo_entrada, char *log){
 				}
 
 				//Si la cajera termina de totalizar, pasa al embolsado
-				//!!!!!!!!VER SI PUEDE ENTRAR AL AREA DE EMBOLSADO
 				if(elem_totalizando->elem.total==0){
 					if((elementos_embolsado+elem_totalizando->elem.cc)<=cc_embolsado){
 						push(area_embolsado,elem_totalizando);
@@ -182,9 +181,8 @@ void simulacion(int *opciones, char* archivo_entrada, char *log){
 					//Creamos una lista
 					lista_t* bolsita=crearLista();
 					//Creamos un nodo_lista_t para una nueva bolsa (lista)
-					nodo_lista_t* bolsa_nueva;
+					nodo_lista_t* bolsa_nueva=crearNodoLista();
 					nodo_t *siguiente;
-					//Vemos si el sig a meter en la bolsa supera su capacidad
 					while(!estaVaciaPila(area_embolsado) && capacidad_bolsa_actual<cc_bolsa){
 						siguiente=peek(area_embolsado);
 						//Si es asi, se agrega a una bolsa solo hasta que se encuentre un elemento de menor cc que la capacidad de la bolsa			
@@ -192,26 +190,44 @@ void simulacion(int *opciones, char* archivo_entrada, char *log){
 							do{
 								lista_t* bolsita_2=crearLista();
 								siguiente=pop(area_embolsado);
+								elementos_embolsado=elementos_embolsado-(siguiente->elem.cc);
 								agregarNodo(bolsita_2,siguiente);
-								bolsa_nueva=crearNodoLista(bolsita_2);
-								agregarNodoLista(bolsas,bolsa_nueva);
+								nodo_lista_t *bolsa_nueva_2=crearNodoLista(bolsita_2);
+								agregarNodoLista(bolsas,bolsa_nueva_2);
 								siguiente=peek(area_embolsado);
 							}while(siguiente->elem.cc>cc_bolsa && !estaVaciaPila(area_embolsado));
 						}	//mientras que el elemento sea mas grande y la pila no este vacia
 						else{//ya tengo el peek
-							siguiente=pop(area_embolsado);
-								
+							if((capacidad_bolsa_actual+siguiente->elem.cc)>cc_bolsa){
+								break;
+							}else{
+								capacidad_bolsa_actual=capacidad_bolsa_actual+siguiente->elem.cc;
+								siguiente=pop(area_embolsado);
+								elementos_embolsado=elementos_embolsado-(siguiente->elem.cc);
+								agregarNodo(bolsita,siguiente);
+							}
 						}
-						
-						//Lo agregamos a la bolsa
+					}
 
-						//Agregamos a la lista de bolsas
-
-						//Cerramos la bolsa, cambiamos la bolsa actual
-
-						//Actualizamos el area de embolsado
-
+					agregarNodoLista(bolsas,bolsa_nueva);
+					//Cerramos la bolsa, cambiamos la bolsa actual
+					bolsa_abierta=false;
+					capacidad_bolsa_actual=0;
+					//Actualizamos el area de embolsado con los que estaban en espera
+					
+					if(!estaVaciaCola(espera_embolsado)){
+						nodo_t *nodo;
+						while(elementos_embolsado<cc_embolsado){
+							nodo=peekCola(espera_embolsado);
+							if(elementos_embolsado+(nodo->elem.cc)>cc_embolsado){
+								break;
+							}else{
+								nodo=desencolar(espera_embolsado);
+								push(area_embolsado,nodo);
+								elementos_embolsado=elementos_embolsado+(nodo->elem.cc);
+							}
 						}
+					}
 				}
 
 				printf("Elementos en el carrito %d:\n",i);

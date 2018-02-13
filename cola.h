@@ -44,6 +44,10 @@ nodo_t* desencolar(cola_t *colaActual){ //quito el primero
 	}
 }
 
+nodo_t* peekCola(cola_t *cola){
+	return cola->cabeza;
+}
+
 void imprimirCola(cola_t *cola){
 	nodo_t *p = cola->cabeza;
 	if(estaVaciaCola(cola)) printf("La cola está vacía.\n");

@@ -57,8 +57,16 @@ lista_t* leerArchivo(char *nombreArchivo){
 	return lista;
 }
 
-//Agrega una linea al log
-void escribirArchivo(char *nombreArchivo, char* linea){
+void escribirLinea(char *nombreArchivo, char *linea){
+	FILE *archivo;
+	archivo=fopen(nombreArchivo,"a");
+	
+	if(archivo==NULL){
+		printf("Error al escribir en el archivo.\n");
+		exit(1);
+	}
+	fprintf(archivo, "%s\n",linea);
+	fclose(archivo);
 	return;
 }
 
