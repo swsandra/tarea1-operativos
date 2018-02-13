@@ -42,6 +42,11 @@ nodo_t* pop(pila_t *pilaActual){
 	}
 }
 
+//Para ver el top de la pila
+nodo_t* peek(pila_t *pilaActual){
+	return pilaActual->top;
+}
+
 //Imprime la pila desde el top hasta el fondo
 void imprimirPila(pila_t *pila){
 	nodo_t *p = pila->top;
