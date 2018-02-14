@@ -59,7 +59,6 @@ nodo_t* crearNodo(char nombre[], int tamano, int total){
 }
 
 //Eliminar un nodo
-//!!!!!!!!!!!! chama queria hacer un assert de esto pero no se como hacerlo :(
 void liberarEspacioNodo(nodo_t *nodo){
 	free(nodo);
 	return;

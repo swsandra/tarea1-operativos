@@ -60,7 +60,7 @@ void simulacion(int *opciones, char* archivo_entrada, char *log){
 		int tiempo_cliente[carritos];
 		for(i=0;i<carritos;i++){
 			printf("Estado del carrito %d, banda transportadora y área de embolsado...\n",i);
-			char c;
+			char c='\n';
 			cola_t *banda=crearCola();
 			pila_t *area_embolsado=crearPila();
 			bolsas_t *bolsas=crearBolsas();
@@ -77,19 +77,6 @@ void simulacion(int *opciones, char* archivo_entrada, char *log){
 			/*printf("Elementos embolsados: \n");
 			imprimirBolsas(bolsas);*/
 
-			//Llenamos la banda transportadora hasta su capacidad la primera vez
-			//nodo_t *actual=(nodo_t*)malloc(sizeof(nodo_t));
-			//j=0;
-			/*while(elementos_banda<cc_banda){
-				actual=buscarNodo(total_carritos[i],j);
-				if((elementos_banda+actual->elem.cc) > cc_banda){//No se agregan mas elementos
-					break;
-				}else{
-					actual=eliminarNodo(total_carritos[i]);
-					encolar(banda,actual);
-					elementos_banda=elementos_banda+(actual->elem.cc);
-				}				
-			}*/
 			int instante=0;
 			bool cajera_totaliza=false; //true si esta totalizando un elemento
 			bool bolsa_abierta=false; //si se abre una bolsa
@@ -101,74 +88,47 @@ void simulacion(int *opciones, char* archivo_entrada, char *log){
 			cola_t *espera_banda=crearCola();
 			cola_t *espera_embolsado=crearCola();
 			int facturacion=t_fact;
-			c='\n';
+			nodo_t *elem_totalizando=NULL;
+			nodo_t *elem_grande=NULL;
+			nodo_t *elem_bolsa=NULL;
+			nodo_t *actual=NULL;
 			while(c=='\n'){
 				printf("\n");
 				printf("Instante %d\n",instante);
 				//Vemos si hay elementos en el carrito para colocar en la banda
-				nodo_t *elem_totalizando=NULL;
+				/*nodo_t *elem_totalizando=NULL;
 				nodo_t *elem_grande=NULL;
 				nodo_t *elem_bolsa=NULL;
-				nodo_t *actual=NULL;
+				nodo_t *actual=NULL;*/
 				printf("LLENA LA BANDA\n");
-				if(estaVaciaLista(total_carritos[i])==false){
+				//if(estaVaciaLista(total_carritos[i])==false){
+				while(elementos_banda<cc_banda && estaVaciaLista(total_carritos[i])==false ){// && actual!=NULL){
 					printf("LLENA LA BANDA\n");
-					while(elementos_banda<cc_banda && actual!=NULL){
-						actual=buscarNodo(total_carritos[i],0);
-						//printf("Actual %s %d %d\n", actual->elem.nombre, actual->elem.cc, actual->elem.total);
-						//printf("Cc hasta el momento %d\n",elementos_banda);
-						//printf("Cabeza del carrito %s %d %d\n", total_carritos[i]->cabeza->elem.nombre, total_carritos[i]->cabeza->elem.cc, total_carritos[i]->cabeza->elem.total);
-						if((elementos_banda+actual->elem.cc) > cc_banda){//No se agregan mas elementos
-							break;
-						}else{
-							actual=eliminarNodo(total_carritos[i]);
-							encolar(banda,actual);
-							elementos_banda=elementos_banda+(actual->elem.cc);
-						}				
-					}
-				}
-
-				//Inicialmente se debe ver si se puede totalizar algo
-				//Si la banda no esta vacia y la cajera no esta totalizando
-				//Si empieza a totalizar algo, debe eliminarlo de la banda y restarle a elementos_banda
-				printf("CAJERA TOMA NUEVO PRODUCTO\n");
-				if((estaVaciaCola(banda)==false) && (cajera_totaliza==false)){
-					printf("CAJERA TOMA NUEVO PRODUCTO\n");
-					elem_totalizando=desencolar(banda);
-					cajera_totaliza=true;
-					elementos_banda=elementos_banda-(elem_totalizando->elem.cc);
-				}
-
-				//Cajera realiza la totalizacion
-				printf("CAJERA TOTALIZA\n");
-				if(cajera_totaliza){
-					printf("CAJERA TOTALIZA\n");
-					(elem_totalizando->elem.total)=(elem_totalizando->elem.total)-v_cajera;
-				}
-
-				//Si la cajera termina de totalizar, pasa al embolsado
-				printf("CAJERA PASA EMBOLSADO\n");
-				printf("Si %d\n", elem_totalizando->elem.total);
-				if(((elem_totalizando->elem.total)<=0) && cajera_totaliza){
-					printf("CAJERA PASA EMBOLSADO\n");
-					if((elementos_embolsado+elem_totalizando->elem.cc)<=cc_embolsado){
-						push(area_embolsado,elem_totalizando);
-						elementos_embolsado=elementos_embolsado+(elem_totalizando->elem.cc);
+					actual=buscarNodo(total_carritos[i],0);
+					//printf("Actual %s %d %d\n", actual->elem.nombre, actual->elem.cc, actual->elem.total);
+					//printf("Cabeza del carrito %s %d %d\n", total_carritos[i]->cabeza->elem.nombre, total_carritos[i]->cabeza->elem.cc, total_carritos[i]->cabeza->elem.total);
+					if(estaVaciaCola(banda) && (elementos_banda+actual->elem.cc) > cc_banda){//No se agregan mas elementos
+						printf("Hola1\n");
+						actual=eliminarNodo(total_carritos[i]);
+						encolar(espera_banda,actual);
+						//printf("Espera banda\n");
+						//imprimirCola(espera_banda);
+						break;
+					}else if(estaVaciaCola(banda)==false && (elementos_banda+actual->elem.cc) > cc_banda){
+						printf("Hola2\n");
+						break;
 					}else{
-						encolar(espera_embolsado,elem_totalizando);
-					}
-					cajera_totaliza=false;
+						printf("Hola3\n");
+						actual=eliminarNodo(total_carritos[i]);
+						encolar(banda,actual);
+						elementos_banda=elementos_banda+(actual->elem.cc);
+						//printf("Actual %s %d %d\n", actual->elem.nombre, actual->elem.cc, actual->elem.total);
+					}	
+					//printf("Banda\n");
+					//imprimirCola(banda);
 				}
+				//}
 
-				/*//Si la banda no esta vacia y la cajera no esta totalizando
-				//Si empieza a totalizar algo, debe eliminarlo de la banda y restarle a elementos_banda
-				if(!estaVaciaCola(banda) && !cajera_totaliza){
-					printf("CAJERA TOMA NUEVO PRODUCTO\n");
-					elem_totalizando=desencolar(banda);
-					cajera_totaliza=true;
-					elementos_banda=elementos_banda - elem_totalizando->elem.cc ;
-				}*/
-				
 				//Si el carrito no esta vacio y la banda si
 				printf("VE SI EL ELEMENTO ES GRANDE\n");
 				if(estaVaciaLista(total_carritos[i])==false && estaVaciaCola(banda)){
@@ -181,6 +141,56 @@ void simulacion(int *opciones, char* archivo_entrada, char *log){
 					}
 				}
 
+
+
+				//Inicialmente se debe ver si se puede totalizar algo
+				//Si la banda no esta vacia y la cajera no esta totalizando
+				//Si empieza a totalizar algo, debe eliminarlo de la banda y restarle a elementos_banda
+				printf("CAJERA TOMA NUEVO PRODUCTO\n");
+				//printf("Cola vacia %d\n", estaVaciaCola(banda));
+				//if (banda->cabeza==NULL) printf("Cabeza vacia\n");
+				//printf("Cabeza del carrito %s %d %d\n", banda->cabeza->elem.nombre, banda->cabeza->elem.cc, banda->cabeza->elem.total);
+				//printf("Cajera totaliza %d\n", cajera_totaliza);
+				if((estaVaciaCola(banda)==false) && (cajera_totaliza==false)){
+					printf("CAJERA TOMA NUEVO PRODUCTO\n");
+					elem_totalizando=desencolar(banda);
+					//if(elem_totalizando==NULL) printf("Hola\n");
+					printf("%s %d %d\n", elem_totalizando->elem.nombre, elem_totalizando->elem.cc, elem_totalizando->elem.total);
+					cajera_totaliza=true;
+					elementos_banda=elementos_banda-(elem_totalizando->elem.cc);
+				}
+
+				//Cajera realiza la totalizacion
+				printf("CAJERA TOTALIZA\n");
+				if(cajera_totaliza==true){
+					printf("CAJERA TOTALIZA\n");
+					//Si la cajera termina de totalizar, pasa al embolsado
+					printf("CAJERA PASA EMBOLSADO\n");
+					if (elem_totalizando==NULL) printf("Es null\n");
+					printf("La totalizacion del elemento %d\n", elem_totalizando->elem.total);
+					if(((elem_totalizando->elem.total)<=0)){
+						printf("CAJERA PASA EMBOLSADO\n");
+						if((elementos_embolsado+elem_totalizando->elem.cc)<=cc_embolsado){
+							push(area_embolsado,elem_totalizando);
+							elementos_embolsado=elementos_embolsado+(elem_totalizando->elem.cc);
+						}else{
+							encolar(espera_embolsado,elem_totalizando);
+						}
+						cajera_totaliza=false;
+					}else{
+						(elem_totalizando->elem.total)=(elem_totalizando->elem.total)-v_cajera;
+					}
+				}
+
+				/*//Si la banda no esta vacia y la cajera no esta totalizando
+				//Si empieza a totalizar algo, debe eliminarlo de la banda y restarle a elementos_banda
+				if(!estaVaciaCola(banda) && !cajera_totaliza){
+					printf("CAJERA TOMA NUEVO PRODUCTO\n");
+					elem_totalizando=desencolar(banda);
+					cajera_totaliza=true;
+					elementos_banda=elementos_banda - elem_totalizando->elem.cc ;
+				}*/
+
 				//Si la cajera no esta totalizando y hay elementos en espera
 				printf("CAJERA TOTALIZA ELEMENTO EN ESPERA\n");
 				if(cajera_totaliza==false && estaVaciaCola(espera_banda)==false){
@@ -191,9 +201,12 @@ void simulacion(int *opciones, char* archivo_entrada, char *log){
 				
 				//Si no hay elementos en la banda y la cajera tampoco esta totalizando->factura--
 				printf("FACTURACION\n");
-				if(estaVaciaCola(banda) && cajera_totaliza==false){
+				if(estaVaciaCola(banda) && estaVaciaCola(espera_banda) && cajera_totaliza==false){
 					printf("FACTURACION\n");
 					facturacion--;
+					if(facturacion==0){
+						break;
+					}
 				}
 
 				//Si hay elementos para embolsar y la bolsa no esta abierta
@@ -295,12 +308,12 @@ void simulacion(int *opciones, char* archivo_entrada, char *log){
 					break;
 				}
 
-				/*printf("Elemento grande\n");
-				if(elem_grande!=NULL) printf("%s %d %d\n", elem_grande->elem.nombre, elem_grande->elem.cc, elem_grande->elem.total);
-				printf("Elemento actual\n");
-				if(actual!=NULL) printf("%s %d %d\n", actual->elem.nombre, actual->elem.cc, actual->elem.total);
+				//printf("Elemento grande\n");
+				//if(elem_grande!=NULL) printf("%s %d %d\n", elem_grande->elem.nombre, elem_grande->elem.cc, elem_grande->elem.total);
+				//printf("Elemento actual\n");
+				//if(actual!=NULL) printf("%s %d %d\n", actual->elem.nombre, actual->elem.cc, actual->elem.total);
 				printf("Elemento totalizando\n");
-				if(elem_totalizando!=NULL) printf("%s %d %d\n", elem_totalizando->elem.nombre, elem_totalizando->elem.cc, elem_totalizando->elem.total);*/
+				if(elem_totalizando!=NULL) printf("%s %d %d\n", elem_totalizando->elem.nombre, elem_totalizando->elem.cc, elem_totalizando->elem.total);
 			}
 
 

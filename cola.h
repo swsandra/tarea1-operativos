@@ -24,6 +24,7 @@ bool estaVaciaCola(cola_t *cola){
 
 void encolar(cola_t *colaActual, nodo_t *nodo){ //al final
 	nodo_t *p = colaActual->cola;
+	//printf("Hola\n");
 	if(estaVaciaCola(colaActual)){//Si la cola inicialmente esta vacia
 		colaActual->cabeza=nodo;
 		colaActual->cola=nodo;
