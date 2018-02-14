@@ -35,9 +35,10 @@ void encolar(cola_t *colaActual, nodo_t *nodo){ //al final
 }
 
 nodo_t* desencolar(cola_t *colaActual){ //quito el primero
-	if(!estaVaciaCola(colaActual)){
+	if(estaVaciaCola(colaActual)==false){
 		nodo_t *p = colaActual->cabeza;
 		colaActual->cabeza=p->next;
+		p->next=NULL;
 		return p;
 	}else{
 		return NULL;

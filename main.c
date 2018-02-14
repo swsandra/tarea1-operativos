@@ -15,7 +15,7 @@ int main(int argc, char *argv[]){
 
 	bool salir=false;
 	char opcion;
-	while(!salir){
+	while(salir==false){
 		do{
 			printf("Menú\n");
 			printf("1. Ejecutar la simulación\n");
@@ -25,6 +25,7 @@ int main(int argc, char *argv[]){
 			printf("Introduzca una opción: ");
 			scanf(" %c",&opcion);
 			//printf("%c\n", opcion);
+			printf("\n");
 		}while(opcion!='1' && opcion!='2' && opcion!='3');
 		
 		int opciones_sim[9];
@@ -46,9 +47,6 @@ int main(int argc, char *argv[]){
 				break;
 			case '2'://cambiar opciones simulacion
 				modificar_simulacion(opciones_sim);
-				/*for(int i=0;i<9;i++){
-					printf("%d: %d\n",i,*(opciones+i));
-				}*/
 				simulacion(opciones,argv[1],"log.txt");
 				break;
 			case '3'://salir del programa

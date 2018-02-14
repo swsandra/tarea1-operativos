@@ -139,6 +139,7 @@ nodo_t* eliminarNodo(lista_t *lista){
 	if(estaVaciaLista(lista)==false){
 		nodo_t *p = lista->cabeza;
 		lista->cabeza=p->next;
+		p->next=NULL;
 		return p; //retorna NULL si la lista es vacia
 	}else return NULL;
 }

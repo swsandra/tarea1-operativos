@@ -33,9 +33,10 @@ void push(pila_t *pilaActual, nodo_t *nodo){
 }
 
 nodo_t* pop(pila_t *pilaActual){
-	if(!estaVaciaPila(pilaActual)){
+	if(estaVaciaPila(pilaActual)==false){
 		nodo_t *p = pilaActual->top;
 		pilaActual->top=p->next;
+		p->next=NULL;
 		return p;
 	}else{
 		return NULL;
