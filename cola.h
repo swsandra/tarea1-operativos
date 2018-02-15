@@ -17,6 +17,11 @@ cola_t* crearCola(){
 	return colaNueva;
 }
 
+void liberarEspacioCola(cola_t* cola){
+	free(cola);
+	return;
+}
+
 bool estaVaciaCola(cola_t *cola){
 	if(cola->cabeza==NULL) return true;
 	else return false;

@@ -78,6 +78,10 @@ lista_t* crearLista(){
 	return lista;
 }
 
+void liberarEspacioLista(lista_t *lista){
+	free(lista);
+	return;
+}
 
 //Imprimir de lista
 void imprimirLista(lista_t *lista){
@@ -170,11 +174,21 @@ nodo_lista_t* crearNodoLista(lista_t *lista_n){
 	return nodoNuevo;
 }
 
+void liberarEspacioNodoLista(nodo_lista_t *nodo_lista){
+	free(nodo_lista);
+	return;
+}
+
 bolsas_t* crearBolsas(){
 	bolsas_t *bolsas=(bolsas_t*)malloc(sizeof(bolsas_t));
 	if(!bolsas) return NULL;
 	bolsas->cabeza=NULL;
 	//bolsas->num_bolsas=0;
+}
+
+void liberarEspacioBolsas(bolsas_t *bolsas){
+	free(bolsas);
+	return;
 }
 
 //Se agrega al principio

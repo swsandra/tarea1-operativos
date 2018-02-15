@@ -15,6 +15,11 @@ pila_t* crearPila(){
 	return pilaNueva;
 }
 
+void liberarEspacioPila(pila_t *pila){
+	free(pila);
+	return;
+}
+
 bool estaVaciaPila(pila_t *pila){
 	if(pila->top==NULL) return true;
 	else return false;
