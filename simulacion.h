@@ -211,11 +211,9 @@ void simulacion(int *opciones, char* archivo_entrada, char *log){
 					nodo_lista_t* bolsa_nueva=crearNodoLista(bolsita);
 					nodo_t *siguiente;
 					while(estaVaciaPila(area_embolsado)==false && capacidad_bolsa_actual<cc_bolsa){
-						//printf("While de abrir la bolsa\n");
 						siguiente=peek(area_embolsado);		
 						//Si es asi, se agrega a una bolsa solo hasta que se encuentre un elemento de menor cc que la capacidad de la bolsa			
 						if((siguiente->elem.cc)>cc_bolsa){
-							//printf("Hola1\n");
 							do{
 								lista_t* bolsita_2=crearLista();
 								siguiente=pop(area_embolsado);
@@ -238,7 +236,6 @@ void simulacion(int *opciones, char* archivo_entrada, char *log){
 						}
 						//printf("Elemento grande\n");
 						if(estaVaciaPila(elementos_grandes_embolsado)==false){
-							//printf("Hola3\n");
 							do{
 								lista_t* bolsita_2=crearLista();
 								siguiente=pop(elementos_grandes_embolsado);
@@ -253,7 +250,6 @@ void simulacion(int *opciones, char* archivo_entrada, char *log){
 
 					//Chequear los elementos grandes para agregarlos a bolsas
 					while(estaVaciaPila(elementos_grandes_embolsado)==false){
-						//printf("While de abrir la bolsa elemento grande\n");
 						siguiente=peek(elementos_grandes_embolsado);
 						lista_t* bolsita_3=crearLista();
 						siguiente=pop(elementos_grandes_embolsado);
@@ -309,7 +305,7 @@ void simulacion(int *opciones, char* archivo_entrada, char *log){
 					printf("Se ha facturado el carrito %d\n",i);
 					tiempo_cliente[i]=instante;
 					printf("\n");
-					//printf("tiempo del cliente %d\n",tiempo_cliente[i]);
+					//Liberar
 					break;
 				}
 			}
