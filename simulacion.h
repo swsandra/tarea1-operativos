@@ -97,27 +97,17 @@ void simulacion(int *opciones, char* archivo_entrada, char *log){
 				while(elementos_banda<cc_banda && estaVaciaLista(total_carritos[i])==false){// && actual!=NULL){
 					printf("LLENA LA BANDA\n");
 					actual=buscarNodo(total_carritos[i],0);
-					//printf("Actual %s %d %d\n", actual->elem.nombre, actual->elem.cc, actual->elem.total);
-					//printf("Cabeza del carrito %s %d %d\n", total_carritos[i]->cabeza->elem.nombre, total_carritos[i]->cabeza->elem.cc, total_carritos[i]->cabeza->elem.total);
 					if(estaVaciaCola(banda) && (elementos_banda+actual->elem.cc) > cc_banda){//No se agregan mas elementos
-						printf("Hola1\n");
 						actual=eliminarNodo(total_carritos[i]);
 						encolar(espera_banda,actual);
-						//printf("Espera banda\n");
-						//imprimirCola(espera_banda);
 						break;
 					}else if(estaVaciaCola(banda)==false && (elementos_banda+actual->elem.cc) > cc_banda){
-						printf("Hola2\n");
 						break;
 					}else{
-						printf("Hola3\n");
 						actual=eliminarNodo(total_carritos[i]);
 						encolar(banda,actual);
 						elementos_banda=elementos_banda+(actual->elem.cc);
-						//printf("Actual %s %d %d\n", actual->elem.nombre, actual->elem.cc, actual->elem.total);
-					}	
-					//printf("Banda\n");
-					//imprimirCola(banda);
+					}
 				}
 
 				//Si el carrito no esta vacio y la banda si
@@ -139,8 +129,7 @@ void simulacion(int *opciones, char* archivo_entrada, char *log){
 				if((estaVaciaCola(banda)==false) && (cajera_totaliza==false)){
 					printf("CAJERA TOMA NUEVO PRODUCTO\n");
 					elem_totalizando=desencolar(banda);
-					//if(elem_totalizando==NULL) printf("Hola\n");
-					printf("%s %d %d\n", elem_totalizando->elem.nombre, elem_totalizando->elem.cc, elem_totalizando->elem.total);
+					//printf("%s %d %d\n", elem_totalizando->elem.nombre, elem_totalizando->elem.cc, elem_totalizando->elem.total);
 					cajera_totaliza=true;
 					elementos_banda=elementos_banda-(elem_totalizando->elem.cc);
 				}
@@ -151,8 +140,7 @@ void simulacion(int *opciones, char* archivo_entrada, char *log){
 					printf("CAJERA TOTALIZA\n");
 					//Si la cajera termina de totalizar, pasa al embolsado
 					printf("CAJERA PASA EMBOLSADO\n");
-					if (elem_totalizando==NULL) printf("Es null\n");
-					printf("La totalizacion del elemento %d\n", elem_totalizando->elem.total);
+					//printf("La totalizacion del elemento %d\n", elem_totalizando->elem.total);
 					if(((elem_totalizando->elem.total)<=0)){
 						printf("CAJERA PASA EMBOLSADO\n");
 						if((elementos_embolsado+elem_totalizando->elem.cc)<=cc_embolsado){
@@ -199,15 +187,13 @@ void simulacion(int *opciones, char* archivo_entrada, char *log){
 				if(estaVaciaCola(banda) && estaVaciaCola(espera_banda) && cajera_totaliza==false){
 					printf("FACTURACION\n");
 					facturacion--;
-					/*if(facturacion==0){
-						break;
-					}*/
 				}
 
 				//Si hay elementos para embolsar y la bolsa no esta abierta
 				printf("TIEMPO PARA ABRIR BOLSA\n");
 				if((estaVaciaPila(area_embolsado)==false || estaVaciaPila(elementos_grandes_embolsado)==false) && bolsa_abierta==false){
 					printf("TIEMPO PARA ABRIR BOLSA\n");
+					printf("La cajera está facturando.\n");
 					t_abrir_bolsa--;
 				}
 
@@ -233,8 +219,6 @@ void simulacion(int *opciones, char* archivo_entrada, char *log){
 					while(estaVaciaPila(area_embolsado)==false && capacidad_bolsa_actual<cc_bolsa){
 						printf("While de abrir la bolsa\n");
 						siguiente=peek(area_embolsado);
-						if(siguiente!=NULL) printf("%s %d %d\n", siguiente->elem.nombre, siguiente->elem.cc, siguiente->elem.total);
-						else printf("siguiente NULL\n");
 						
 						//Si es asi, se agrega a una bolsa solo hasta que se encuentre un elemento de menor cc que la capacidad de la bolsa			
 						if((siguiente->elem.cc)>cc_bolsa){
@@ -247,11 +231,9 @@ void simulacion(int *opciones, char* archivo_entrada, char *log){
 								nodo_lista_t *bolsa_nueva_2=crearNodoLista(bolsita_2);
 								agregarBolsa(bolsas,bolsa_nueva_2);
 								siguiente=peek(area_embolsado);
-								//printf("%d\n", estaVaciaPila(area_embolsado));
-							}while(estaVaciaPila(area_embolsado)==false); //&& siguiente!=NULL  (siguiente->elem.cc)>cc_bolsa && 
+							}while(estaVaciaPila(area_embolsado)==false);
 						}	//mientras que el elemento sea mas grande y la pila no este vacia
 						else{//ya tengo el peek
-							printf("Hola2\n");
 							if((capacidad_bolsa_actual+(siguiente->elem.cc))>cc_bolsa){
 								break;
 							}else{
@@ -266,12 +248,12 @@ void simulacion(int *opciones, char* archivo_entrada, char *log){
 							printf("Hola3\n");
 							do{
 								lista_t* bolsita_2=crearLista();
-								siguiente=pop(area_embolsado);
+								siguiente=pop(elementos_grandes_embolsado);
 								//elementos_embolsado=elementos_embolsado-(siguiente->elem.cc);
 								agregarNodo(bolsita_2,siguiente);
 								nodo_lista_t *bolsa_nueva_2=crearNodoLista(bolsita_2);
 								agregarBolsa(bolsas,bolsa_nueva_2);
-								siguiente=peek(area_embolsado);
+								siguiente=peek(elementos_grandes_embolsado);
 							}while(estaVaciaPila(elementos_grandes_embolsado)==false);
 						}
 					}
@@ -281,7 +263,7 @@ void simulacion(int *opciones, char* archivo_entrada, char *log){
 						printf("While de abrir la bolsa elemento grande\n");
 						siguiente=peek(elementos_grandes_embolsado);
 						lista_t* bolsita_3=crearLista();
-						siguiente=pop(area_embolsado);
+						siguiente=pop(elementos_grandes_embolsado);
 						agregarNodo(bolsita_3,siguiente);
 						nodo_lista_t *bolsa_nueva_3=crearNodoLista(bolsita_3);
 						agregarBolsa(bolsas,bolsa_nueva_3);
@@ -290,9 +272,7 @@ void simulacion(int *opciones, char* archivo_entrada, char *log){
 
 					if(estaVaciaLista(bolsita)==false){
 						agregarBolsa(bolsas,bolsa_nueva);
-					}//!!!!!!!!!else{
-						//eliminar la bolsa que se creo
-					//}
+					}
 					//Cerramos la bolsa, cambiamos la bolsa actual
 					bolsa_abierta=false;
 					capacidad_bolsa_actual=0;
@@ -336,50 +316,39 @@ void simulacion(int *opciones, char* archivo_entrada, char *log){
 					printf("Se ha facturado el carrito %d\n",i);
 					tiempo_cliente[i]=instante;
 					printf("\n");
-					printf("tiempo del cliente %d\n",tiempo_cliente[i]);
+					//printf("tiempo del cliente %d\n",tiempo_cliente[i]);
 					break;
 				}
 			}
 		}
-		//printf("SALIO DEL LOOP\n");
 		//Para la escritura en el log
-		char *str="";
-		printf("Hola\n");
-		strcat(archivo_entrada,"\t"); //destination source. archivo entrada
-		strcat(str,archivo_entrada);
-		printf("%s\n", str);
+		char str[100];
+		printf("%s\n", archivo_entrada);
+		strcpy(str,archivo_entrada);
+		strcat(str,"\t"); //destination source. archivo entrada
 		char num[10];
 		sprintf(num,"%d\t",carritos);
 		strcat(str,num);//cantidad de carritos
-		printf("%s\n", str);
 		for(i=0;i<carritos;i++){//numero de productos por carrito
 			sprintf(num,"%d\t",compras_por_carrito[i]);
 			strcat(str,num);
 		}
-		printf("%s\n", str);
 		sprintf(num,"%d\t",cc_banda);
 		strcat(str,num); //capacidad banda transportadora
-		printf("%s\n", str);
 		sprintf(num,"%d\t",v_cajera);
 		strcat(str,num);//velocidad cajera
-		printf("%s\n", str);
 		sprintf(num,"%d\t",v_embolsado);
 		strcat(str,num);//velocidad embolsador
-		printf("%s\n", str);
 		sprintf(num,"%d\t",t_fact);
 		strcat(str,num);//tiempo facturacion
-		printf("%s\n", str);
 		sprintf(num,"%d\t",cc_embolsado);//capacidad area embolsado
 		strcat(str,num);
-		printf("%s\n", str);
 		sprintf(num,"%d\t",cc_bolsa);//capacidad bolsa
 		strcat(str,num);
-		printf("%s\n", str);
 		for(i=0;i<carritos;i++){//tiempo por carrito
 			sprintf(num,"%d\t",tiempo_cliente[i]);
 			strcat(str,num);
 		}
-		printf("%s\n", str);
 		int tiempo_total=0;
 		for(i=0;i<carritos;i++){//numero de productos por carrito
 			tiempo_total=tiempo_total+tiempo_cliente[i];
