@@ -206,7 +206,7 @@ void simulacion(int *opciones, char* archivo_entrada, char *log){
 
 				//Si hay elementos para embolsar y la bolsa no esta abierta
 				printf("TIEMPO PARA ABRIR BOLSA\n");
-				if(estaVaciaPila(area_embolsado)==false && bolsa_abierta==false){
+				if((estaVaciaPila(area_embolsado)==false || estaVaciaPila(elementos_grandes_embolsado)==false) && bolsa_abierta==false){
 					printf("TIEMPO PARA ABRIR BOLSA\n");
 					t_abrir_bolsa--;
 				}
@@ -272,11 +272,30 @@ void simulacion(int *opciones, char* archivo_entrada, char *log){
 								nodo_lista_t *bolsa_nueva_2=crearNodoLista(bolsita_2);
 								agregarBolsa(bolsas,bolsa_nueva_2);
 								siguiente=peek(area_embolsado);
-							}while(estaVaciaPila(elementos_grandes_embolsado)==true);
+							}while(estaVaciaPila(elementos_grandes_embolsado)==false);
 						}
 					}
 
-					agregarBolsa(bolsas,bolsa_nueva);
+					//Chequear los elementos grandes para agregarlos a bolsas
+					while(estaVaciaPila(elementos_grandes_embolsado)==false){
+						printf("While de abrir la bolsa elemento grande\n");
+						siguiente=peek(elementos_grandes_embolsado);
+						do{
+							lista_t* bolsita_2=crearLista();
+							siguiente=pop(area_embolsado);
+							elementos_embolsado=elementos_embolsado-(siguiente->elem.cc);
+							agregarNodo(bolsita_2,siguiente);
+							nodo_lista_t *bolsa_nueva_2=crearNodoLista(bolsita_2);
+							agregarBolsa(bolsas,bolsa_nueva_2);
+							siguiente=peek(area_embolsado);
+						}while(estaVaciaPila(elementos_grandes_embolsado)==false);
+					}
+
+					if(estaVaciaLista(bolsita)==false){
+						agregarBolsa(bolsas,bolsa_nueva);
+					}//!!!!!!!!!else{
+						//eliminar la bolsa que se creo
+					//}
 					//Cerramos la bolsa, cambiamos la bolsa actual
 					bolsa_abierta=false;
 					capacidad_bolsa_actual=0;
