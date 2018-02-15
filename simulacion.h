@@ -235,10 +235,12 @@ void simulacion(int *opciones, char* archivo_entrada, char *log){
 					//Creamos un nodo_lista_t para una nueva bolsa (lista)
 					nodo_lista_t* bolsa_nueva=crearNodoLista(bolsita);
 					nodo_t *siguiente;
-					while(estaVaciaPila(area_embolsado)==true && capacidad_bolsa_actual<cc_bolsa){
+					while(estaVaciaPila(area_embolsado)==false && capacidad_bolsa_actual<cc_bolsa){
+						printf("While de abrir la bolsa\n");
 						siguiente=peek(area_embolsado);
+						if(siguiente!=NULL) printf("%s %d %d\n", siguiente->elem.nombre, siguiente->elem.cc, siguiente->elem.total);
 						//Si es asi, se agrega a una bolsa solo hasta que se encuentre un elemento de menor cc que la capacidad de la bolsa			
-						if(siguiente->elem.cc>cc_bolsa){
+						if((siguiente->elem.cc)>cc_bolsa){
 							do{
 								lista_t* bolsita_2=crearLista();
 								siguiente=pop(area_embolsado);
