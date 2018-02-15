@@ -267,7 +267,7 @@ void simulacion(int *opciones, char* archivo_entrada, char *log){
 							do{
 								lista_t* bolsita_2=crearLista();
 								siguiente=pop(area_embolsado);
-								elementos_embolsado=elementos_embolsado-(siguiente->elem.cc);
+								//elementos_embolsado=elementos_embolsado-(siguiente->elem.cc);
 								agregarNodo(bolsita_2,siguiente);
 								nodo_lista_t *bolsa_nueva_2=crearNodoLista(bolsita_2);
 								agregarBolsa(bolsas,bolsa_nueva_2);
@@ -280,15 +280,12 @@ void simulacion(int *opciones, char* archivo_entrada, char *log){
 					while(estaVaciaPila(elementos_grandes_embolsado)==false){
 						printf("While de abrir la bolsa elemento grande\n");
 						siguiente=peek(elementos_grandes_embolsado);
-						do{
-							lista_t* bolsita_2=crearLista();
-							siguiente=pop(area_embolsado);
-							elementos_embolsado=elementos_embolsado-(siguiente->elem.cc);
-							agregarNodo(bolsita_2,siguiente);
-							nodo_lista_t *bolsa_nueva_2=crearNodoLista(bolsita_2);
-							agregarBolsa(bolsas,bolsa_nueva_2);
-							siguiente=peek(area_embolsado);
-						}while(estaVaciaPila(elementos_grandes_embolsado)==false);
+						lista_t* bolsita_3=crearLista();
+						siguiente=pop(area_embolsado);
+						agregarNodo(bolsita_3,siguiente);
+						nodo_lista_t *bolsa_nueva_3=crearNodoLista(bolsita_3);
+						agregarBolsa(bolsas,bolsa_nueva_3);
+						siguiente=peek(area_embolsado);
 					}
 
 					if(estaVaciaLista(bolsita)==false){
@@ -342,20 +339,12 @@ void simulacion(int *opciones, char* archivo_entrada, char *log){
 					printf("tiempo del cliente %d\n",tiempo_cliente[i]);
 					break;
 				}
-
-				//printf("Elemento grande\n");
-				//if(elem_grande!=NULL) printf("%s %d %d\n", elem_grande->elem.nombre, elem_grande->elem.cc, elem_grande->elem.total);
-				//printf("Elemento actual\n");
-				//if(actual!=NULL) printf("%s %d %d\n", actual->elem.nombre, actual->elem.cc, actual->elem.total);
-				//printf("Elemento totalizando\n");
-				//if(elem_totalizando!=NULL) printf("%s %d %d\n", elem_totalizando->elem.nombre, elem_totalizando->elem.cc, elem_totalizando->elem.total);
 			}
-
-
 		}
-
+		//printf("SALIO DEL LOOP\n");
 		//Para la escritura en el log
 		char *str="";
+		printf("Hola\n");
 		strcat(archivo_entrada,"\t"); //destination source. archivo entrada
 		strcat(str,archivo_entrada);
 		printf("%s\n", str);
