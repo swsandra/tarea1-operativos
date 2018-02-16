@@ -48,11 +48,11 @@ int main(int argc, char *argv[]){
 			case '2'://cambiar opciones simulacion
 				modificar_simulacion(opciones_sim);
 				simulacion(opciones,argv[1],"log.txt");
+				printf("holaaaaaa\n");
 				break;
 			case '3'://salir del programa
 				salir=true;
 				break;
-
 		}
 
 	}

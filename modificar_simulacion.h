@@ -42,7 +42,7 @@ void modificar_simulacion(int *opciones){
 					scanf(" %d",&op);
 					printf("\n");
 				}while(op<1 || op>2);
-				printf("%c\n", op);
+				//printf("%c\n", op);
 				if(op==1) *(opciones)=1;
 				else if(op==2) *(opciones)=2;
 				break;

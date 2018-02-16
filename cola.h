@@ -60,7 +60,8 @@ void imprimirCola(cola_t *cola){
 	if(estaVaciaCola(cola)) printf("La cola está vacía.\n");
 	else{
 		do{	
-			printf("%s	%d	%d\n", p->elem.nombre,p->elem.cc,p->elem.total);
+			//printf("%s	%d	%d\n", p->elem.nombre,p->elem.cc,p->elem.total);
+			printf("%s\n", p->elem.nombre);
 			p=p->next;
 		}while(p!=NULL);
 	}
